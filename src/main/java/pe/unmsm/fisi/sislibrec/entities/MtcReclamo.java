@@ -2,7 +2,8 @@ package pe.unmsm.fisi.sislibrec.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
+import java.util.List;
 
 
 /**
@@ -22,25 +23,57 @@ public class MtcReclamo implements Serializable {
 
 	private Integer activo;
 
-	private LocalDateTime date;
-
 	@Column(name="date_crea")
-	private LocalDateTime dateCrea;
+	private Timestamp dateCrea;
+
+	@Column(name="date_modi")
+	private Timestamp dateModi;
 
 	private String descripcion;
+
+	@Column(name="fecha_hora")
+	private Timestamp fechaHora;
+
+	private String observacion;
 
 	private String ticket;
 
 	@Column(name="user_crea")
 	private String userCrea;
 
+	@Column(name="user_modi")
+	private String userModi;
+	
+	@Version
+	private Integer version;
+
+	//bi-directional many-to-one association to MtcDependencia
+	@ManyToOne
+	@JoinColumn(name="id_dependencia")
+	private MtcDependencia mtcDependencia;
+
+	//bi-directional many-to-one association to MtcEmpresa
+	@ManyToOne
+	@JoinColumn(name="id_empresa")
+	private MtcEmpresa mtcEmpresa;
+
 	//bi-directional many-to-one association to MtcEstadoReclamo
 	@ManyToOne
 	@JoinColumn(name="id_estado_reclamo")
 	private MtcEstadoReclamo mtcEstadoReclamo;
-	
-	@Version
-	private Integer version;
+
+	//bi-directional many-to-one association to MtcTipoReclamo
+	@ManyToOne
+	@JoinColumn(name="id_tipo_reclamo")
+	private MtcTipoReclamo mtcTipoReclamo;
+
+	//bi-directional many-to-one association to MtcReclamoRespuesta
+	@OneToMany(mappedBy="mtcReclamo")
+	private List<MtcReclamoRespuesta> mtcReclamoRespuestas;
+
+	//bi-directional many-to-one association to MtcSancion
+	@OneToMany(mappedBy="mtcReclamo")
+	private List<MtcSancion> mtcSancions;
 
 	public MtcReclamo() {
 	}
@@ -61,20 +94,20 @@ public class MtcReclamo implements Serializable {
 		this.activo = activo;
 	}
 
-	public LocalDateTime getDate() {
-		return this.date;
-	}
-
-	public void setDate(LocalDateTime date) {
-		this.date = date;
-	}
-
-	public LocalDateTime getDateCrea() {
+	public Timestamp getDateCrea() {
 		return this.dateCrea;
 	}
 
-	public void setDateCrea(LocalDateTime dateCrea) {
+	public void setDateCrea(Timestamp dateCrea) {
 		this.dateCrea = dateCrea;
+	}
+
+	public Timestamp getDateModi() {
+		return this.dateModi;
+	}
+
+	public void setDateModi(Timestamp dateModi) {
+		this.dateModi = dateModi;
 	}
 
 	public String getDescripcion() {
@@ -83,6 +116,22 @@ public class MtcReclamo implements Serializable {
 
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
+	}
+
+	public Timestamp getFechaHora() {
+		return this.fechaHora;
+	}
+
+	public void setFechaHora(Timestamp fechaHora) {
+		this.fechaHora = fechaHora;
+	}
+
+	public String getObservacion() {
+		return this.observacion;
+	}
+
+	public void setObservacion(String observacion) {
+		this.observacion = observacion;
 	}
 
 	public String getTicket() {
@@ -101,6 +150,38 @@ public class MtcReclamo implements Serializable {
 		this.userCrea = userCrea;
 	}
 
+	public String getUserModi() {
+		return this.userModi;
+	}
+
+	public void setUserModi(String userModi) {
+		this.userModi = userModi;
+	}
+
+	public Integer getVersion() {
+		return this.version;
+	}
+
+	public void setVersion(Integer version) {
+		this.version = version;
+	}
+
+	public MtcDependencia getMtcDependencia() {
+		return this.mtcDependencia;
+	}
+
+	public void setMtcDependencia(MtcDependencia mtcDependencia) {
+		this.mtcDependencia = mtcDependencia;
+	}
+
+	public MtcEmpresa getMtcEmpresa() {
+		return this.mtcEmpresa;
+	}
+
+	public void setMtcEmpresa(MtcEmpresa mtcEmpresa) {
+		this.mtcEmpresa = mtcEmpresa;
+	}
+
 	public MtcEstadoReclamo getMtcEstadoReclamo() {
 		return this.mtcEstadoReclamo;
 	}
@@ -109,12 +190,56 @@ public class MtcReclamo implements Serializable {
 		this.mtcEstadoReclamo = mtcEstadoReclamo;
 	}
 
-	public Integer getVersion() {
-		return version;
+	public MtcTipoReclamo getMtcTipoReclamo() {
+		return this.mtcTipoReclamo;
 	}
 
-	public void setVersion(Integer version) {
-		this.version = version;
-	}	
+	public void setMtcTipoReclamo(MtcTipoReclamo mtcTipoReclamo) {
+		this.mtcTipoReclamo = mtcTipoReclamo;
+	}
+
+	public List<MtcReclamoRespuesta> getMtcReclamoRespuestas() {
+		return this.mtcReclamoRespuestas;
+	}
+
+	public void setMtcReclamoRespuestas(List<MtcReclamoRespuesta> mtcReclamoRespuestas) {
+		this.mtcReclamoRespuestas = mtcReclamoRespuestas;
+	}
+
+	public MtcReclamoRespuesta addMtcReclamoRespuesta(MtcReclamoRespuesta mtcReclamoRespuesta) {
+		getMtcReclamoRespuestas().add(mtcReclamoRespuesta);
+		mtcReclamoRespuesta.setMtcReclamo(this);
+
+		return mtcReclamoRespuesta;
+	}
+
+	public MtcReclamoRespuesta removeMtcReclamoRespuesta(MtcReclamoRespuesta mtcReclamoRespuesta) {
+		getMtcReclamoRespuestas().remove(mtcReclamoRespuesta);
+		mtcReclamoRespuesta.setMtcReclamo(null);
+
+		return mtcReclamoRespuesta;
+	}
+
+	public List<MtcSancion> getMtcSancions() {
+		return this.mtcSancions;
+	}
+
+	public void setMtcSancions(List<MtcSancion> mtcSancions) {
+		this.mtcSancions = mtcSancions;
+	}
+
+	public MtcSancion addMtcSancion(MtcSancion mtcSancion) {
+		getMtcSancions().add(mtcSancion);
+		mtcSancion.setMtcReclamo(this);
+
+		return mtcSancion;
+	}
+
+	public MtcSancion removeMtcSancion(MtcSancion mtcSancion) {
+		getMtcSancions().remove(mtcSancion);
+		mtcSancion.setMtcReclamo(null);
+
+		return mtcSancion;
+	}
 
 }

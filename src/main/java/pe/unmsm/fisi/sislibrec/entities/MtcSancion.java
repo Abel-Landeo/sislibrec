@@ -3,23 +3,22 @@ package pe.unmsm.fisi.sislibrec.entities;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.List;
 
 
 /**
- * The persistent class for the mtc_estado_reclamo database table.
+ * The persistent class for the mtc_sancion database table.
  * 
  */
 @Entity
-@Table(name="mtc_estado_reclamo")
-@NamedQuery(name="MtcEstadoReclamo.findAll", query="SELECT m FROM MtcEstadoReclamo m")
-public class MtcEstadoReclamo implements Serializable {
+@Table(name="mtc_sancion")
+@NamedQuery(name="MtcSancion.findAll", query="SELECT m FROM MtcSancion m")
+public class MtcSancion implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_estado_reclamo")
-	private Integer idEstadoReclamo;
+	@Column(name="id_sancion")
+	private Integer idSancion;
 
 	private Integer activo;
 
@@ -38,18 +37,24 @@ public class MtcEstadoReclamo implements Serializable {
 	private String userModi;
 
 	//bi-directional many-to-one association to MtcReclamo
-	@OneToMany(mappedBy="mtcEstadoReclamo")
-	private List<MtcReclamo> mtcReclamos;
+	@ManyToOne
+	@JoinColumn(name="id_reclamo")
+	private MtcReclamo mtcReclamo;
 
-	public MtcEstadoReclamo() {
+	//bi-directional many-to-one association to MtcTipoSancion
+	@ManyToOne
+	@JoinColumn(name="id_tipo_sancion")
+	private MtcTipoSancion mtcTipoSancion;
+
+	public MtcSancion() {
 	}
 
-	public Integer getIdEstadoReclamo() {
-		return this.idEstadoReclamo;
+	public Integer getIdSancion() {
+		return this.idSancion;
 	}
 
-	public void setIdEstadoReclamo(Integer idEstadoReclamo) {
-		this.idEstadoReclamo = idEstadoReclamo;
+	public void setIdSancion(Integer idSancion) {
+		this.idSancion = idSancion;
 	}
 
 	public Integer getActivo() {
@@ -100,26 +105,20 @@ public class MtcEstadoReclamo implements Serializable {
 		this.userModi = userModi;
 	}
 
-	public List<MtcReclamo> getMtcReclamos() {
-		return this.mtcReclamos;
+	public MtcReclamo getMtcReclamo() {
+		return this.mtcReclamo;
 	}
 
-	public void setMtcReclamos(List<MtcReclamo> mtcReclamos) {
-		this.mtcReclamos = mtcReclamos;
+	public void setMtcReclamo(MtcReclamo mtcReclamo) {
+		this.mtcReclamo = mtcReclamo;
 	}
 
-	public MtcReclamo addMtcReclamo(MtcReclamo mtcReclamo) {
-		getMtcReclamos().add(mtcReclamo);
-		mtcReclamo.setMtcEstadoReclamo(this);
-
-		return mtcReclamo;
+	public MtcTipoSancion getMtcTipoSancion() {
+		return this.mtcTipoSancion;
 	}
 
-	public MtcReclamo removeMtcReclamo(MtcReclamo mtcReclamo) {
-		getMtcReclamos().remove(mtcReclamo);
-		mtcReclamo.setMtcEstadoReclamo(null);
-
-		return mtcReclamo;
+	public void setMtcTipoSancion(MtcTipoSancion mtcTipoSancion) {
+		this.mtcTipoSancion = mtcTipoSancion;
 	}
 
 }

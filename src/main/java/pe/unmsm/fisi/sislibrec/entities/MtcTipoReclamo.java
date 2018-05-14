@@ -7,19 +7,19 @@ import java.util.List;
 
 
 /**
- * The persistent class for the mtc_estado_reclamo database table.
+ * The persistent class for the mtc_tipo_reclamo database table.
  * 
  */
 @Entity
-@Table(name="mtc_estado_reclamo")
-@NamedQuery(name="MtcEstadoReclamo.findAll", query="SELECT m FROM MtcEstadoReclamo m")
-public class MtcEstadoReclamo implements Serializable {
+@Table(name="mtc_tipo_reclamo")
+@NamedQuery(name="MtcTipoReclamo.findAll", query="SELECT m FROM MtcTipoReclamo m")
+public class MtcTipoReclamo implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_estado_reclamo")
-	private Integer idEstadoReclamo;
+	@Column(name="id_tipo_reclamo")
+	private Integer idTipoReclamo;
 
 	private Integer activo;
 
@@ -38,18 +38,18 @@ public class MtcEstadoReclamo implements Serializable {
 	private String userModi;
 
 	//bi-directional many-to-one association to MtcReclamo
-	@OneToMany(mappedBy="mtcEstadoReclamo")
+	@OneToMany(mappedBy="mtcTipoReclamo")
 	private List<MtcReclamo> mtcReclamos;
 
-	public MtcEstadoReclamo() {
+	public MtcTipoReclamo() {
 	}
 
-	public Integer getIdEstadoReclamo() {
-		return this.idEstadoReclamo;
+	public Integer getIdTipoReclamo() {
+		return this.idTipoReclamo;
 	}
 
-	public void setIdEstadoReclamo(Integer idEstadoReclamo) {
-		this.idEstadoReclamo = idEstadoReclamo;
+	public void setIdTipoReclamo(Integer idTipoReclamo) {
+		this.idTipoReclamo = idTipoReclamo;
 	}
 
 	public Integer getActivo() {
@@ -110,14 +110,14 @@ public class MtcEstadoReclamo implements Serializable {
 
 	public MtcReclamo addMtcReclamo(MtcReclamo mtcReclamo) {
 		getMtcReclamos().add(mtcReclamo);
-		mtcReclamo.setMtcEstadoReclamo(this);
+		mtcReclamo.setMtcTipoReclamo(this);
 
 		return mtcReclamo;
 	}
 
 	public MtcReclamo removeMtcReclamo(MtcReclamo mtcReclamo) {
 		getMtcReclamos().remove(mtcReclamo);
-		mtcReclamo.setMtcEstadoReclamo(null);
+		mtcReclamo.setMtcTipoReclamo(null);
 
 		return mtcReclamo;
 	}

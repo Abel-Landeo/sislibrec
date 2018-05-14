@@ -7,19 +7,19 @@ import java.util.List;
 
 
 /**
- * The persistent class for the mtc_estado_reclamo database table.
+ * The persistent class for the mtc_perfil database table.
  * 
  */
 @Entity
-@Table(name="mtc_estado_reclamo")
-@NamedQuery(name="MtcEstadoReclamo.findAll", query="SELECT m FROM MtcEstadoReclamo m")
-public class MtcEstadoReclamo implements Serializable {
+@Table(name="mtc_perfil")
+@NamedQuery(name="MtcPerfil.findAll", query="SELECT m FROM MtcPerfil m")
+public class MtcPerfil implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_estado_reclamo")
-	private Integer idEstadoReclamo;
+	@Column(name="id_perfil")
+	private Integer idPerfil;
 
 	private Integer activo;
 
@@ -37,19 +37,19 @@ public class MtcEstadoReclamo implements Serializable {
 	@Column(name="user_modi")
 	private String userModi;
 
-	//bi-directional many-to-one association to MtcReclamo
-	@OneToMany(mappedBy="mtcEstadoReclamo")
-	private List<MtcReclamo> mtcReclamos;
+	//bi-directional many-to-one association to MtcUsuario
+	@OneToMany(mappedBy="mtcPerfil")
+	private List<MtcUsuario> mtcUsuarios;
 
-	public MtcEstadoReclamo() {
+	public MtcPerfil() {
 	}
 
-	public Integer getIdEstadoReclamo() {
-		return this.idEstadoReclamo;
+	public Integer getIdPerfil() {
+		return this.idPerfil;
 	}
 
-	public void setIdEstadoReclamo(Integer idEstadoReclamo) {
-		this.idEstadoReclamo = idEstadoReclamo;
+	public void setIdPerfil(Integer idPerfil) {
+		this.idPerfil = idPerfil;
 	}
 
 	public Integer getActivo() {
@@ -100,26 +100,26 @@ public class MtcEstadoReclamo implements Serializable {
 		this.userModi = userModi;
 	}
 
-	public List<MtcReclamo> getMtcReclamos() {
-		return this.mtcReclamos;
+	public List<MtcUsuario> getMtcUsuarios() {
+		return this.mtcUsuarios;
 	}
 
-	public void setMtcReclamos(List<MtcReclamo> mtcReclamos) {
-		this.mtcReclamos = mtcReclamos;
+	public void setMtcUsuarios(List<MtcUsuario> mtcUsuarios) {
+		this.mtcUsuarios = mtcUsuarios;
 	}
 
-	public MtcReclamo addMtcReclamo(MtcReclamo mtcReclamo) {
-		getMtcReclamos().add(mtcReclamo);
-		mtcReclamo.setMtcEstadoReclamo(this);
+	public MtcUsuario addMtcUsuario(MtcUsuario mtcUsuario) {
+		getMtcUsuarios().add(mtcUsuario);
+		mtcUsuario.setMtcPerfil(this);
 
-		return mtcReclamo;
+		return mtcUsuario;
 	}
 
-	public MtcReclamo removeMtcReclamo(MtcReclamo mtcReclamo) {
-		getMtcReclamos().remove(mtcReclamo);
-		mtcReclamo.setMtcEstadoReclamo(null);
+	public MtcUsuario removeMtcUsuario(MtcUsuario mtcUsuario) {
+		getMtcUsuarios().remove(mtcUsuario);
+		mtcUsuario.setMtcPerfil(null);
 
-		return mtcReclamo;
+		return mtcUsuario;
 	}
 
 }

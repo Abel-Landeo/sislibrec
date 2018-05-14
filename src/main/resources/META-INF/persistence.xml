@@ -2,8 +2,5 @@
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 	<persistence-unit name="sislibrec">
 		<jta-data-source>java:/ds_sislibrec</jta-data-source>
-		<class>pe.unmsm.fisi.sislibrec.entities.MtcEstadoReclamo</class>
-		<class>pe.unmsm.fisi.sislibrec.entities.MtcReclamo</class>
-		<class>pe.unmsm.fisi.sislibrec.entities.MtcTicketNumber</class>
 	</persistence-unit>
 </persistence>

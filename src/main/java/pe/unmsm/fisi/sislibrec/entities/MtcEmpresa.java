@@ -7,19 +7,19 @@ import java.util.List;
 
 
 /**
- * The persistent class for the mtc_estado_reclamo database table.
+ * The persistent class for the mtc_empresa database table.
  * 
  */
 @Entity
-@Table(name="mtc_estado_reclamo")
-@NamedQuery(name="MtcEstadoReclamo.findAll", query="SELECT m FROM MtcEstadoReclamo m")
-public class MtcEstadoReclamo implements Serializable {
+@Table(name="mtc_empresa")
+@NamedQuery(name="MtcEmpresa.findAll", query="SELECT m FROM MtcEmpresa m")
+public class MtcEmpresa implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_estado_reclamo")
-	private Integer idEstadoReclamo;
+	@Column(name="id_empresa")
+	private Integer idEmpresa;
 
 	private Integer activo;
 
@@ -29,7 +29,9 @@ public class MtcEstadoReclamo implements Serializable {
 	@Column(name="date_modi")
 	private Timestamp dateModi;
 
-	private String descripcion;
+	private String nombre;
+
+	private String rubro;
 
 	@Column(name="user_crea")
 	private String userCrea;
@@ -37,19 +39,29 @@ public class MtcEstadoReclamo implements Serializable {
 	@Column(name="user_modi")
 	private String userModi;
 
+	//bi-directional many-to-one association to MtcRazonSocial
+	@ManyToOne
+	@JoinColumn(name="id_razon_social")
+	private MtcRazonSocial mtcRazonSocial;
+
+	//bi-directional many-to-one association to MtcUsuario
+	@ManyToOne
+	@JoinColumn(name="id_usuario_contacto")
+	private MtcUsuario mtcUsuario;
+
 	//bi-directional many-to-one association to MtcReclamo
-	@OneToMany(mappedBy="mtcEstadoReclamo")
+	@OneToMany(mappedBy="mtcEmpresa")
 	private List<MtcReclamo> mtcReclamos;
 
-	public MtcEstadoReclamo() {
+	public MtcEmpresa() {
 	}
 
-	public Integer getIdEstadoReclamo() {
-		return this.idEstadoReclamo;
+	public Integer getIdEmpresa() {
+		return this.idEmpresa;
 	}
 
-	public void setIdEstadoReclamo(Integer idEstadoReclamo) {
-		this.idEstadoReclamo = idEstadoReclamo;
+	public void setIdEmpresa(Integer idEmpresa) {
+		this.idEmpresa = idEmpresa;
 	}
 
 	public Integer getActivo() {
@@ -76,12 +88,20 @@ public class MtcEstadoReclamo implements Serializable {
 		this.dateModi = dateModi;
 	}
 
-	public String getDescripcion() {
-		return this.descripcion;
+	public String getNombre() {
+		return this.nombre;
 	}
 
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public String getRubro() {
+		return this.rubro;
+	}
+
+	public void setRubro(String rubro) {
+		this.rubro = rubro;
 	}
 
 	public String getUserCrea() {
@@ -100,6 +120,22 @@ public class MtcEstadoReclamo implements Serializable {
 		this.userModi = userModi;
 	}
 
+	public MtcRazonSocial getMtcRazonSocial() {
+		return this.mtcRazonSocial;
+	}
+
+	public void setMtcRazonSocial(MtcRazonSocial mtcRazonSocial) {
+		this.mtcRazonSocial = mtcRazonSocial;
+	}
+
+	public MtcUsuario getMtcUsuario() {
+		return this.mtcUsuario;
+	}
+
+	public void setMtcUsuario(MtcUsuario mtcUsuario) {
+		this.mtcUsuario = mtcUsuario;
+	}
+
 	public List<MtcReclamo> getMtcReclamos() {
 		return this.mtcReclamos;
 	}
@@ -110,14 +146,14 @@ public class MtcEstadoReclamo implements Serializable {
 
 	public MtcReclamo addMtcReclamo(MtcReclamo mtcReclamo) {
 		getMtcReclamos().add(mtcReclamo);
-		mtcReclamo.setMtcEstadoReclamo(this);
+		mtcReclamo.setMtcEmpresa(this);
 
 		return mtcReclamo;
 	}
 
 	public MtcReclamo removeMtcReclamo(MtcReclamo mtcReclamo) {
 		getMtcReclamos().remove(mtcReclamo);
-		mtcReclamo.setMtcEstadoReclamo(null);
+		mtcReclamo.setMtcEmpresa(null);
 
 		return mtcReclamo;
 	}

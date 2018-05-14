@@ -7,19 +7,19 @@ import java.util.List;
 
 
 /**
- * The persistent class for the mtc_estado_reclamo database table.
+ * The persistent class for the mtc_estado_notificacion database table.
  * 
  */
 @Entity
-@Table(name="mtc_estado_reclamo")
-@NamedQuery(name="MtcEstadoReclamo.findAll", query="SELECT m FROM MtcEstadoReclamo m")
-public class MtcEstadoReclamo implements Serializable {
+@Table(name="mtc_estado_notificacion")
+@NamedQuery(name="MtcEstadoNotificacion.findAll", query="SELECT m FROM MtcEstadoNotificacion m")
+public class MtcEstadoNotificacion implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_estado_reclamo")
-	private Integer idEstadoReclamo;
+	@Column(name="id_estado_notificacion")
+	private Integer idEstadoNotificacion;
 
 	private Integer activo;
 
@@ -37,19 +37,19 @@ public class MtcEstadoReclamo implements Serializable {
 	@Column(name="user_modi")
 	private String userModi;
 
-	//bi-directional many-to-one association to MtcReclamo
-	@OneToMany(mappedBy="mtcEstadoReclamo")
-	private List<MtcReclamo> mtcReclamos;
+	//bi-directional many-to-one association to MtcNotificacion
+	@OneToMany(mappedBy="mtcEstadoNotificacion")
+	private List<MtcNotificacion> mtcNotificacions;
 
-	public MtcEstadoReclamo() {
+	public MtcEstadoNotificacion() {
 	}
 
-	public Integer getIdEstadoReclamo() {
-		return this.idEstadoReclamo;
+	public Integer getIdEstadoNotificacion() {
+		return this.idEstadoNotificacion;
 	}
 
-	public void setIdEstadoReclamo(Integer idEstadoReclamo) {
-		this.idEstadoReclamo = idEstadoReclamo;
+	public void setIdEstadoNotificacion(Integer idEstadoNotificacion) {
+		this.idEstadoNotificacion = idEstadoNotificacion;
 	}
 
 	public Integer getActivo() {
@@ -100,26 +100,26 @@ public class MtcEstadoReclamo implements Serializable {
 		this.userModi = userModi;
 	}
 
-	public List<MtcReclamo> getMtcReclamos() {
-		return this.mtcReclamos;
+	public List<MtcNotificacion> getMtcNotificacions() {
+		return this.mtcNotificacions;
 	}
 
-	public void setMtcReclamos(List<MtcReclamo> mtcReclamos) {
-		this.mtcReclamos = mtcReclamos;
+	public void setMtcNotificacions(List<MtcNotificacion> mtcNotificacions) {
+		this.mtcNotificacions = mtcNotificacions;
 	}
 
-	public MtcReclamo addMtcReclamo(MtcReclamo mtcReclamo) {
-		getMtcReclamos().add(mtcReclamo);
-		mtcReclamo.setMtcEstadoReclamo(this);
+	public MtcNotificacion addMtcNotificacion(MtcNotificacion mtcNotificacion) {
+		getMtcNotificacions().add(mtcNotificacion);
+		mtcNotificacion.setMtcEstadoNotificacion(this);
 
-		return mtcReclamo;
+		return mtcNotificacion;
 	}
 
-	public MtcReclamo removeMtcReclamo(MtcReclamo mtcReclamo) {
-		getMtcReclamos().remove(mtcReclamo);
-		mtcReclamo.setMtcEstadoReclamo(null);
+	public MtcNotificacion removeMtcNotificacion(MtcNotificacion mtcNotificacion) {
+		getMtcNotificacions().remove(mtcNotificacion);
+		mtcNotificacion.setMtcEstadoNotificacion(null);
 
-		return mtcReclamo;
+		return mtcNotificacion;
 	}
 
 }

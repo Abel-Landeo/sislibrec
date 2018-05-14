@@ -7,19 +7,19 @@ import java.util.List;
 
 
 /**
- * The persistent class for the mtc_estado_reclamo database table.
+ * The persistent class for the mtc_dependencia database table.
  * 
  */
 @Entity
-@Table(name="mtc_estado_reclamo")
-@NamedQuery(name="MtcEstadoReclamo.findAll", query="SELECT m FROM MtcEstadoReclamo m")
-public class MtcEstadoReclamo implements Serializable {
+@Table(name="mtc_dependencia")
+@NamedQuery(name="MtcDependencia.findAll", query="SELECT m FROM MtcDependencia m")
+public class MtcDependencia implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_estado_reclamo")
-	private Integer idEstadoReclamo;
+	@Column(name="id_dependencia")
+	private Integer idDependencia;
 
 	private Integer activo;
 
@@ -38,18 +38,18 @@ public class MtcEstadoReclamo implements Serializable {
 	private String userModi;
 
 	//bi-directional many-to-one association to MtcReclamo
-	@OneToMany(mappedBy="mtcEstadoReclamo")
+	@OneToMany(mappedBy="mtcDependencia")
 	private List<MtcReclamo> mtcReclamos;
 
-	public MtcEstadoReclamo() {
+	public MtcDependencia() {
 	}
 
-	public Integer getIdEstadoReclamo() {
-		return this.idEstadoReclamo;
+	public Integer getIdDependencia() {
+		return this.idDependencia;
 	}
 
-	public void setIdEstadoReclamo(Integer idEstadoReclamo) {
-		this.idEstadoReclamo = idEstadoReclamo;
+	public void setIdDependencia(Integer idDependencia) {
+		this.idDependencia = idDependencia;
 	}
 
 	public Integer getActivo() {
@@ -110,14 +110,14 @@ public class MtcEstadoReclamo implements Serializable {
 
 	public MtcReclamo addMtcReclamo(MtcReclamo mtcReclamo) {
 		getMtcReclamos().add(mtcReclamo);
-		mtcReclamo.setMtcEstadoReclamo(this);
+		mtcReclamo.setMtcDependencia(this);
 
 		return mtcReclamo;
 	}
 
 	public MtcReclamo removeMtcReclamo(MtcReclamo mtcReclamo) {
 		getMtcReclamos().remove(mtcReclamo);
-		mtcReclamo.setMtcEstadoReclamo(null);
+		mtcReclamo.setMtcDependencia(null);
 
 		return mtcReclamo;
 	}
